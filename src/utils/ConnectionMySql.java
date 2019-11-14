@@ -40,4 +40,21 @@ public class ConnectionMySql {
     }
   }
 
+  public static ResultSet getAllProducts() {
+    init();
+    ResultSet rs = null;
+    try {
+      //here sonoo is database name, root is username and password
+      Statement stmt = con.createStatement();
+      rs = stmt.executeQuery("SELECT ID, post_content, post_title, post_excerpt \n"
+              + "FROM sbiker.wp_posts\n"
+              + "where post_type = 'product'\n"
+              + "and post_status = 'publish';");
+
+    } catch (SQLException ex) {
+      Logger.getLogger(ConnectionMySql.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return rs;
+  }
+
 }
