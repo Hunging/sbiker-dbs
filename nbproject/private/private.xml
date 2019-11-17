@@ -3,7 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/sbiker-dbs/src/utils/ConnectionMySql.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/sbiker-dbs/src/sbiker/classes/Manufacturer.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/sbiker-dbs/src/utils/ManufacturerUtils.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/sbiker-dbs/src/sbiker/classes/Category.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/sbiker-dbs/src/sbiker/classes/Product.java</file>
         </group>
     </open-files>
 </project-private>

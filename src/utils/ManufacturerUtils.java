@@ -1,12 +1,7 @@
 package utils;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
 import sbiker.classes.Manufacturer;
-import static utils.ConnectionMySql.getAllProducts;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -29,6 +24,7 @@ class UnknownManufacturer {
 
   private static final Manufacturer unknownManufacturer = new Manufacturer(1, "unknown", new ArrayList<String>());
 
+  
   public static Manufacturer getUnknownManufacturer() {
     return unknownManufacturer;
   }

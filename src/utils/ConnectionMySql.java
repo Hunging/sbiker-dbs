@@ -57,4 +57,44 @@ public class ConnectionMySql {
     return rs;
   }
 
+  public static ResultSet getAllPrice() {
+    init();
+    ResultSet rs = null;
+    try {
+      //here sonoo is database name, root is username and password
+      Statement stmt = con.createStatement();
+      rs = stmt.executeQuery("SELECT pm.post_id, pm.meta_value\n"
+              + "FROM sbiker.wp_postmeta as pm\n"
+              + "inner join sbiker.wp_posts as post\n"
+              + "	on pm.post_id = post.ID\n"
+              + "where pm.meta_key ='_regular_price'\n"
+              + "and post.post_status = 'publish';");
+
+    } catch (SQLException ex) {
+      Logger.getLogger(ConnectionMySql.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return rs;
+  }
+
+  public static ResultSet getAllImageId() {
+    init();
+    ResultSet rs = null;
+    try {
+      //here sonoo is database name, root is username and password
+      Statement stmt = con.createStatement();
+      rs = stmt.executeQuery("SELECT pm.post_id, pm.meta_value\n"
+              + "FROM sbiker.wp_postmeta as pm\n"
+              + "inner join sbiker.wp_posts as post\n"
+              + "	on pm.post_id = post.ID\n"
+              + "where post.post_type = 'product'\n"
+              + "	and pm.meta_key like '%image_gallery%'\n"
+              + "    and post.post_status = 'publish'\n"
+              + "    and meta_value != '';");
+
+    } catch (SQLException ex) {
+      Logger.getLogger(ConnectionMySql.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return rs;
+  }
+
 }
