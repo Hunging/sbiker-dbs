@@ -11,7 +11,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 import sbiker.classes.ProductImage;
 
@@ -77,3 +81,25 @@ class AllSubImages {
   }
 }
 
+class StringUtils {
+
+  private static final Pattern NONLATIN = Pattern.compile("[^\\w-]");
+  private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
+
+  public static String toSlug(String input) {
+    String newinput = input.replace("đ", "d");
+    newinput = newinput.replace("_", "-");
+    String nowhitespace = WHITESPACE.matcher(newinput).replaceAll("-");
+    String normalized = Normalizer.normalize(nowhitespace, Form.NFD);
+    String slug = NONLATIN.matcher(normalized).replaceAll("");
+    return slug.toLowerCase(Locale.ENGLISH);
+  }
+
+  public static String url2Slug(String url) {
+    String newLink = url.substring(url.lastIndexOf("/") + 1);
+    String fileType = newLink.substring(newLink.lastIndexOf("."));
+    newLink = toSlug(newLink.substring(0, newLink.length() - fileType.length()));
+    newLink += fileType;
+    return newLink;
+  }
+}
