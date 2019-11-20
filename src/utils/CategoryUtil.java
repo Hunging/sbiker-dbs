@@ -12,7 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sbiker.classes.Category;
+import transferdbdata.classes.Category;
+import static transferdbdata.utils.ConnectionMySql.getAllCategories;
 
 /**
  *
@@ -22,7 +23,7 @@ public class CategoryUtil {
 
   public static void processCategory() {
     try {
-      ResultSet rs = null;
+      ResultSet rs = getAllCategories();
       int index = 1;
       while (rs.next()) {
 
