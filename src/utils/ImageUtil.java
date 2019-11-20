@@ -21,7 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
-import transferdbdata.classes.ProductImage;
+import sbiker.classes.ProductImage;
 
 /**
  *

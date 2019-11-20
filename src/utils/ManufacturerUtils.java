@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import transferdbdata.classes.Manufacturer;
-import static transferdbdata.utils.ConnectionMySql.getAllProducts;
+import sbiker.classes.Manufacturer;
+import static utils.ConnectionMySql.getAllProducts;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
