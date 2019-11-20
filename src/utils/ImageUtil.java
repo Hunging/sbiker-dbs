@@ -11,13 +11,17 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
-import sbiker.classes.ProductImage;
+import transferdbdata.classes.ProductImage;
 
 /**
  *
@@ -26,6 +30,9 @@ import sbiker.classes.ProductImage;
 public class ImageUtil {
 
   public static void processImageAllinOne() {
+    processImageID();
+    processImageLink();
+    mapImage2Product();
     AllSubImages.getImageList().forEach((image) -> {
 //      System.out.println(image.getId() + "    " + image.getImage());
 //      try {
@@ -65,6 +72,61 @@ public class ImageUtil {
 
     // Return the buffered image
     return bimage;
+  }
+
+  public static void processImageID() {
+    ResultSet rs = ConnectionMySql.getAllImageId();
+
+    int index = 0;
+    try {
+      while (rs.next()) {
+
+        int post_id = rs.getInt(1);
+        String listinString = rs.getString(2);
+        String[] imageArray = listinString.trim().split(",");
+
+        for (String tmp : imageArray) {
+          index++;
+          ProductImage image = new ProductImage(index, post_id, Integer.parseInt(tmp));
+          AllSubImages.getImageList().add(image);
+
+        }
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }
+
+  public static void mapImage2Product() {
+    AllSubImages.getImageList().forEach((tmpImage) -> {
+      int product_post_id = tmpImage.getPost_id();
+      int productId = AllProducts.getProductIdFromPostId(product_post_id);
+      tmpImage.setNew_product_id(productId);
+    });
+  }
+
+  public static void processImageLink() {
+    ResultSet rs = ConnectionMySql.getAllImageLink();
+
+    try {
+
+      while (rs.next()) {
+        int id = rs.getInt(1);
+        String name = rs.getString(2);
+        String link = rs.getString(3);
+        for (ProductImage image : AllSubImages.getImageList()) {
+
+          if (image.getImage_post_id() == id) {
+
+            String newLink = StringUtils.url2Slug(link);
+            image.setName(name);
+            image.setImage(newLink);
+          }
+        }
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null, ex);
+    }
   }
 }
 
