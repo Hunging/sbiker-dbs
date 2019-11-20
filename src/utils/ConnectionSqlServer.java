@@ -30,8 +30,8 @@ public class ConnectionSqlServer {
   private static void init() {
     try {
       Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-      String connectionString = "jdbc:sqlserver://210.211.122.33;Initial Catalog=Sbiker;Integrated Security=False";
-      con = DriverManager.getConnection(connectionString, "sbiker-dbu", "h7FCqcfNr5zzGQcR");
+      String connectionString = "";
+      con = DriverManager.getConnection(connectionString, "", "");
       
     } catch (ClassNotFoundException | SQLException ex) {
       Logger.getLogger(ConnectionMySql.class.getName()).log(Level.SEVERE, null, ex);
